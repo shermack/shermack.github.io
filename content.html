@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content</title>
+    <style>
+        body {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <img src="mpesalogo.png" alt="M-Pesa Logo" class="title-logo">
+    <h1>Buy Me a Coffee</h1>
+    <label for="amount">AMOUNT</label><br>
+    <input type="number" step="0.01" min="0" name="amount" id="amount" placeholder="Enter the amount">
+    <br>
+    <label for="mpesa-phone">MPESA-PHONE</label><br>
+    <input type="tel" name="mpesa-phone" id="mpesa-phone" placeholder="Enter your M-Pesa phone number">
+    <br>
+    <button type="button" class="button" onclick="buyCoffee()">Buy</button>
+    <script>
+        function buyCoffee() {
+            const amount = document.getElementById("amount").value;
+            const phone = document.getElementById("mpesa-phone").value;
+            // Replace 'mpesa.php' with the path to your PHP file that handles the notification.
+            fetch('mpesa.php', {
+                method: 'POST',
+                body: JSON.stringify({ amount, phone }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => {
+                // Handle the response if needed (e.g., display a success message).
+                console.log(response);
+            }).catch(error => {
+                // Handle errors if necessary.
+                console.error('Error:', error);
+            });
+        }
+    </script

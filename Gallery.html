@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+        }
+        .gallery-container {
+            display: flex;
+            overflow: hidden;
+            position: relative;
+            width: 100vw;
+            height: 80vh; /* Adjust height as needed */
+            max-height: 600px; /* Maximum height for the gallery */
+            margin: 20px auto;
+            background-color: rgba(0, 0, 0, 0.5); /* Optional dark background for contrast */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        .gallery-image {
+            min-width: 100%;
+            height: auto;
+            transition: transform 1s ease-in-out;
+        }
+        .gallery-container img {
+            width: 100%;
+            height: auto;
+            object-fit: cover; /* Adjusts image to cover the container */
+        }
+        .gallery-controls {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            padding: 0 10px;
+        }
+        .gallery-controls button {
+            background: rgba(255, 255, 255, 0.7);
+            border: none;
+            border-radius: 50%;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        .gallery-controls button:hover {
+            background: rgba(255, 255, 255, 1);
+        }
+    </style>
+</head>
+<body>
+    <div class="gallery-container">
+        <img src="photo1.jpg" alt="Photo 1" class="gallery-image" id="galleryImage">
+        <div class="gallery-controls">
+            <button onclick="prevImage()">❮</button>
+            <button onclick="nextImage()">❯</button>
+        </div>
+    </div>
+
+    <script>
+        const images = ['photo1.jpg', 'photo2.jpg', 'photo3.jpg']; // Add your images here
+        let currentIndex = 0;
+
+        function showImage(index) {
+            const galleryImage = document.getElementById('galleryImage');
+            galleryImage.src = images[index];
+        }
+
+        function nextImage() {
+            currentIndex = (currentIndex + 1) % images.length;
+            showImage(currentIndex);
+        }
+
+        function prevImage() {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            showImage(currentIndex);
+        }
+
+        // Initial image display
+        showImage(currentIndex);
+    </script>
+</body>
+</html>
