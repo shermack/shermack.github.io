@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy Me a Coffee</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('background.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+            max-width: 1200px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        .payment-form {
+            flex: 1;
+            padding: 20px;
+            max-width: 500px;
+        }
+        .payment-form img {
+            width: 100px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+        .payment-form input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .payment-form button {
+            background-color: #008CBA;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            color: #fff;
+        }
+        .address-container {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: flex-end;
+        }
+        .address-box {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            max-width: 250px;
+            text-align: left;
+            cursor: pointer;
+            position: relative;
+            word-wrap: break-word; /* Allows long text to wrap within the container */
+            overflow-wrap: break-word; /* Ensures long words break correctly */
+        }
+        .address-box p {
+            margin: 0;
+            font-size: 14px;
+            white-space: normal; /* Allows text to wrap */
+        }
+        .address-box::after {
+            content: 'Click to copy';
+            font-size: 12px;
+            color: #666;
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+        }
+        .address-box:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="payment-form">
+            <img src="mpesalogo.png" alt="M-Pesa Logo">
+            <h1>Buy Me a Coffee</h1>
+            <label for="amount">AMOUNT</label><br>
+            <input type="number" step="0.01" min="0" name="amount" id="amount" placeholder="Enter the amount">
+            <br>
+            <label for="mpesa-phone">MPESA-PHONE</label><br>
+            <input type="tel" name="mpesa-phone" id="mpesa-phone" placeholder="Enter your M-Pesa phone number">
+            <br>
+            <button type="button" class="button" onclick="buyCoffee()">Buy</button>
+        </div>
+        <div class="address-container">
+            <div class="address-box" onclick="copyToClipboard('Paypal:shermackprolific01@gmail.com')">
+                <p>Paypal: shermackprolific01@gmail.com</p>
+            </div>
+            <div class="address-box" onclick="copyToClipboard('Bitcoin:3EsJSsa1BgYj3amjHZDfDMjSgTf7cALRbf')">
+                <p>Bitcoin: 3EsJSsa1BgYj3amjHZDfDMjSgTf7cALRbf</p>
+            </div>
+            <div class="address-box" onclick="copyToClipboard('Etherium:0xF839790ECe35777Ab4980fe5E0E56eA01d96b452')">
+                <p>Etherium: 0xF839790ECe35777Ab4980fe5E0E56eA01d96b452</p>
+            </div>
+            <div class="address-box" onclick="copyToClipboard('USDT:TH5c6DcA9RtATUgHZF7LfUKPGqZw8yYk7S')">
+                <p>USDT: TH5c6DcA9RtATUgHZF7LfUKPGqZw8yYk7S</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        function buyCoffee() {
+            const amount = document.getElementById("amount").value;
+            const phone = document.getElementById("mpesa-phone").value;
+            fetch('mpesa.php', {
+                method: 'POST',
+                body: JSON.stringify({ amount, phone }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => {
+                console.log(response);
+            }).catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Copied to clipboard!');
+            }, (err) => {
+                console.error('Failed to copy: ', err);
+            });
+        }
+    </script>
+</body>
+</html>
